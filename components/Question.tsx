@@ -54,7 +54,8 @@ const positions = [
 
 const fetchTeam = async (teamId: string) => {
   const res = await fetch(
-    `https://www.fftoday.com/nfl/depth.php?TeamID=${teamId}}`
+    `https://www.fftoday.com/nfl/depth.php?TeamID=${teamId}}`,
+    { cache: 'no-store' }
   );
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
