@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="w-full h-full min-h-screen overflow-hidden flex items-center justify-center bg-zinc-200">
+    <div className="w-full h-full min-h-[100dvh] overflow-hidden flex items-center justify-center bg-zinc-200">
       <div className="h-16 w-full bg-black absolute top-0 flex justify-between">
         <h1 className="text-white font-extrabold flex items-center px-2">
           {`YDKB - You Don't Know Ball`}
