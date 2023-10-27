@@ -3,39 +3,41 @@
 import * as cheerio from 'cheerio';
 import { QuestionCard } from './QuestionCard';
 
-const teams: { [key: string]: string } = {
-  9017: 'Arizona Cardinals',
-  9024: 'Atlanta Falcons',
-  9030: 'Baltimore Ravens',
-  9000: 'Buffalo Bills',
-  9028: 'Carolina Panthers',
-  9019: 'Chicago Bears',
-  9005: 'Cincinnati Bengals',
-  9006: 'Cleveland Browns',
-  9014: 'Dallas Cowboys',
-  9009: 'Denver Broncos',
-  9020: 'Detroit Lions',
-  9021: 'Green Bay Packers',
-  9031: 'Houston Texans',
-  9001: 'Indianapolis Colts',
-  9029: 'Jacksonville Jaguars',
-  9010: 'Kansas City Chiefs',
-  9033: 'Los Angeles Chargers',
-  9032: 'Los Angeles Rams',
-  9011: 'Las Vegas Raiders',
-  9002: 'Miami Dolphins',
-  9022: 'Minnesota Vikings',
-  9003: 'New England Patriots',
-  9026: 'New Orleans Saints',
-  9015: 'New York Giants',
-  9004: 'New York Jets',
-  9016: 'Philadelphia Eagles',
-  9008: 'Pittsburgh Steelers',
-  9013: 'Seattle Seahawks',
-  9027: 'San Francisco 49ers',
-  9023: 'Tampa Bay Buccaneers',
-  9007: 'Tennessee Titans',
-  9018: 'Washington Commanders',
+const teams: {
+  [key: string]: { name: string; color: string; accent?: boolean };
+} = {
+  9017: { name: 'Arizona Cardinals', color: '#97233F', accent: true },
+  9024: { name: 'Atlanta Falcons', color: '#A71930' },
+  9030: { name: 'Baltimore Ravens', color: '#241773', accent: true },
+  9000: { name: 'Buffalo Bills', color: '#00338D', accent: true },
+  9028: { name: 'Carolina Panthers', color: '#0085CA' },
+  9019: { name: 'Chicago Bears', color: '#C83803', accent: true },
+  9005: { name: 'Cincinnati Bengals', color: '#FB4F14' },
+  9006: { name: 'Cleveland Browns', color: '#311D00', accent: true },
+  9014: { name: 'Dallas Cowboys', color: '#041E42', accent: true },
+  9009: { name: 'Denver Broncos', color: '#FB4F14' },
+  9020: { name: 'Detroit Lions', color: '#0076B6' },
+  9021: { name: 'Green Bay Packers', color: '#203731', accent: true },
+  9031: { name: 'Houston Texans', color: '#03202F', accent: true },
+  9001: { name: 'Indianapolis Colts', color: '#002C5F', accent: true },
+  9029: { name: 'Jacksonville Jaguars', color: '#101820', accent: true },
+  9010: { name: 'Kansas City Chiefs', color: '#E31837' },
+  9033: { name: 'Los Angeles Chargers', color: '#0080C6' },
+  9032: { name: 'Los Angeles Rams', color: '#FFA300' },
+  9011: { name: 'Las Vegas Raiders', color: '#000000', accent: true },
+  9002: { name: 'Miami Dolphins', color: '#008E97' },
+  9022: { name: 'Minnesota Vikings', color: '#4F2683', accent: true },
+  9003: { name: 'New England Patriots', color: '#002244', accent: true },
+  9026: { name: 'New Orleans Saints', color: '#D3BC8D' },
+  9015: { name: 'New York Giants', color: '#0B2265', accent: true },
+  9004: { name: 'New York Jets', color: '#125740', accent: true },
+  9016: { name: 'Philadelphia Eagles', color: '#004C54', accent: true },
+  9008: { name: 'Pittsburgh Steelers', color: '#FFB612' },
+  9013: { name: 'Seattle Seahawks', color: '#002244', accent: true },
+  9027: { name: 'San Francisco 49ers', color: '#AA0000', accent: true },
+  9023: { name: 'Tampa Bay Buccaneers', color: '#D50A0A', accent: true },
+  9007: { name: 'Tennessee Titans', color: '#0C2340', accent: true },
+  9018: { name: 'Washington Commanders', color: '#5A1414', accent: true },
 };
 
 const positions = [
@@ -67,7 +69,7 @@ const fetchTeam = async (teamId: string) => {
 export default async function Question() {
   const teamIds = Object.keys(teams);
   const teamId = teamIds[Math.floor(Math.random() * teamIds.length)];
-  const teamName = teams[teamId];
+  const team = teams[teamId];
   const v = await fetchTeam(teamId);
   const $ = cheerio.load(v);
   const table = $('table');
@@ -100,7 +102,7 @@ export default async function Question() {
     <QuestionCard
       key={key}
       position={randomPlayer[0]}
-      team={teamName}
+      team={team}
       answer={randomPlayer[1].trim()}
     />
   );
