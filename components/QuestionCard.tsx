@@ -26,8 +26,14 @@ export const QuestionCard = ({
     const formattedInput = answerInput.current?.value
       .toLowerCase()
       .replace(/[^a-z]/gi, '');
-    const formattedAnswer = answer.toLowerCase().replace(/[^a-z]/gi, '');
-    if (formattedInput === formattedAnswer) {
+
+    const lastName = answer
+      .toLowerCase()
+      .split(' ')
+      .slice(-1)[0]
+      .replace(/[^a-z]/gi, '');
+
+    if (formattedInput?.includes(lastName)) {
       setStatus('bg-green-700');
     } else {
       setStatus('bg-red-700');
